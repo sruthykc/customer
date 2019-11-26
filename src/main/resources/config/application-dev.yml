@@ -25,7 +25,8 @@ eureka:
     client:
         service-url:
             defaultZone: http://admin:${jhipster.registry.password}@localhost:8761/eureka/
-
+        enabled: false
+        
 spring:
     profiles:
         active: dev
@@ -41,11 +42,36 @@ spring:
     jackson:
         serialization:
             indent-output: true
+            
+    cloud:
+        stream:
+            kafka:
+                binder:
+                    brokers: dev.servers.divisosofttech.com
+                    zk-nodes: dev.servers.divisosofttech.com
+                    configuration:
+                       key.serializer: org.apache.kafka.common.serialization.ByteArraySerializer
+                       value.serializer: com.diviso.graeshoppe.config.SerdeConfig
+            bindings:
+                output:
+                    destination: topic-jhipster
+                customer:
+                    destination: customer
+                    contentType: application/*+avro
+                    producer:
+                       useNativeEncoding: true
+            schemaRegistryClient:
+              endpoint: http://dev.servers.divisosofttech.com:8081
+            schema:
+              avro:
+                schema-locations: classpath:avro/customer.avsc
+
+    
     datasource:
         type: com.zaxxer.hikari.HikariDataSource
         url: jdbc:mysql://localhost:3306/customer?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC
         username: root
-        password:
+        password: root
         hikari:
             poolName: Hikari
             auto-commit: false
@@ -69,17 +95,37 @@ spring:
             hibernate.cache.use_minimal_puts: true
             hibernate.cache.hazelcast.use_lite_member: true
     data:
-        elasticsearch:
-            properties:
-                path:
-                    home: target/elasticsearch
+       elasticsearch:
+           cluster-name: 039a8d60bba54e46a0021ba33cb2d15d
+           cluster-nodes: https://039a8d60bba54e46a0021ba33cb2d15d.us-west1.gcp.cloud.es.io:9243/
+           properties:
+               path:
+                   logs: target/elasticsearch/log
+                   data: target/elasticsearch/data
+       jest:
+           password: oG1Sm3v2HCjBJRvIVxnWtGCL
+           username: elastic
+           readTimeout: 10000
+           uri: https://039a8d60bba54e46a0021ba33cb2d15d.us-west1.gcp.cloud.es.io:9243/
     liquibase:
         contexts: dev
     mail:
-        host: localhost
-        port: 25
-        username:
-        password:
+        host: smtp.gmail.com
+        port: 587
+        username: graeshoppe.diviso@gmail.com
+        password: dpfd gsve sajm bkpa
+        properties:
+            mail:
+                smtp:
+                    ssl:
+                        trust: smtp.gmail.com
+                    starttls:
+                        enable: true
+                        required: true
+                    auth: true
+                    connectiontimeout: 5000
+                    timeout: 5000
+                    writetimeout: 5000
     messages:
         cache-duration: PT1S # 1 second, see the ISO 8601 standard
     thymeleaf:

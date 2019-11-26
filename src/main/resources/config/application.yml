@@ -150,10 +150,10 @@ spring:
 security:
     oauth2:
         client:
-            client-id: internal
-            client-secret: internal
+            client-id: account
+            client-secret: d4f03412-cdad-45b0-9ccc-beddd8399ac5
         resource:
-            user-info-uri: http://localhost:9080/auth/realms/jhipster/protocol/openid-connect/userinfo
+            user-info-uri: https://dev.servers.divisosofttech.com/auth/realms/graeshoppe/protocol/openid-connect/userinfo
 
 server:
     servlet:
@@ -198,6 +198,15 @@ jhipster:
         contact-email:
         license:
         license-url:
+        
+smsgateway:
+   uk-url: https://api.txtlocal.com
+   uk-sender: FoodExp
+   in-url: https://api.textlocal.in
+   in-sender: WINMTS
+   credentials:
+      uk-apiKey: X8TXzZ3n8Yc-oPcDvBC0CWo8vNvAZoJKzW5KZrqVsF
+      in-apiKey: LaOs/+NbOtU-qsVX1aJkKJ0SXK4khv3bInFkyvMWdG
 
 # ===================================================================
 # Application specific properties
@@ -209,3 +218,6 @@ jhipster:
 # ===================================================================
 
 # application:
+
+app:
+   customerId-prefix: FP-
