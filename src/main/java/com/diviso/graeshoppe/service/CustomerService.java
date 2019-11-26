@@ -79,7 +79,7 @@ public interface CustomerService {
 
 	OTPChallenge verifyOTP(Long numbers, String code);
 
-	Customer findByReference(String reference);
+	Customer findByIdpCode(String reference);
 
 	Optional<CustomerDTO> findByMobileNumber(Long mobileNumber);
 

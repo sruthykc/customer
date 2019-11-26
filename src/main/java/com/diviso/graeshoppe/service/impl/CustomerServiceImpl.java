@@ -345,7 +345,7 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 
 	@Override
-	public Customer findByReference(String idpCode) {
+	public Customer findByIdpCode(String idpCode) {
 		return customerRepository.findByIdpCode(idpCode).get();
 	}
 
